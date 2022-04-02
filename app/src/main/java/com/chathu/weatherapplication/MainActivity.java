@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -19,7 +22,10 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,6 +67,28 @@ public class MainActivity extends AppCompatActivity {
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
+    }
+
+    private String getCityName(double longitude, double latitude){
+        String cityName = "Not Found";
+        Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+        try {
+            List<Address> addresses = gcd.getFromLocation(latitude,longitude,10);
+
+            for (Address adr : addresses){
+                if (adr!=null){
+                    String city = adr.getLocality();
+                    if (city!=null && !city.equals("")){
+                        cityName = city;
+                    }else {
+                        Log.d("TAG","CITY NOT FOUND");
+                    }
+                }
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void getWeatherInfo(String cityName){
