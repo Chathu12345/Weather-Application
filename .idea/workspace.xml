@@ -55,7 +55,7 @@
     <property name="android-custom-viewC:/Users/Chathu/AppData/Local/Android/Sdk/sources/android-31/android/widget/RelativeLayout.java_SELECTED" value="RelativeLayout" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/FITBETS/android" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -142,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648873949596</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Did changes">
+      <created>1648875975121</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648875975121</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
