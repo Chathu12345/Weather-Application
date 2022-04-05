@@ -15,7 +15,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -32,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         cityName = getCityName(location.getLongitude(),location.getLatitude());
+        cityName = "London";
         getWeatherInfo(cityName);
+
 
         searchIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         cityName = city;
                     }else {
                         Log.d("TAG","CITY NOT FOUND");
-                        Toast.makeText(this, "User City Not Found...", Toast.LENGTH_SHORT).show();
+                       /* Toast.makeText(this, "User City Not Found...", Toast.LENGTH_SHORT).show();*/
                     }
                 }
             }
@@ -163,6 +165,18 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject forecastObj = response.getJSONObject("forecast");
                     JSONObject forecastO = forecastObj.getJSONArray("forecastday").getJSONObject(0);
+                    JSONArray hourArray = forecastO.getJSONArray("hour");
+
+                    for (int i=0; i<hourArray.length(); i++){
+                        JSONObject hourObj = hourArray.getJSONObject(i);
+                        String time = hourObj.getString("time");
+                        String temper = hourObj.getString("temp_c");
+                        String img = hourObj.getJSONObject("condition").getString("icon");
+                        String wind = hourObj.getString("wind_kph");
+                        weatherModelArrayList.add(new WeatherModel(time,temper,img,wind));
+                    }
+
+                    weatherAdapter.notifyDataSetChanged();
 
 
                 } catch (JSONException e) {
